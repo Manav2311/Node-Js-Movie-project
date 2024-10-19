@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prime Videos</title>
+  <!-- font awesome cdn  -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <!-- bootstrap -->
+  <link href="../bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <!-- utilities -->
+  <link rel="stylesheet" href="../assets/css/utilities.css" />
+  <!-- css -->
+  <link rel="stylesheet" href="../assets/css/style.css" />
+</head>
+
+<body data-bs-theme="dark">
+  <%- include('partials/navbar') %>
+
+    <!-- Movie card -->
+    <section class="data-cards">
+      <div class="container mt-5">
+        <div class="card-wrapper">
+          <% data.map((user)=> { %>
+            <div class="card">
+              <div class="card-front">
+                <img src="<%= user.image %>" height="100%" width="100%" alt="image" />
+              </div>
+              <div class="card-back">
+                <h3>
+                  <%= user.title %>
+                </h3>
+                <p>Rating: <%= user.rating %>
+                </p>
+                <p>Date: <%= new Date(user.date).toLocaleDateString('en-GB') %>
+                </p>
+                <p>Description: <%= user.description %>
+                </p>
+                <div class="controls ">
+                  <a href="/deleteData/<%= user._id %>" class="mx-3 text-danger"><i class="fa-solid fa-trash"></i></a>
+                  <a href="/editData/<%= user._id %>" class="text-light"><i class="fa-solid fa-pen-to-square"></i></a>
+                </div>
+              </div>
+            </div>
+            <% }) %>
+        </div>
+      </div>
+    </section>
+    <!-- Modal -->
+    <div class="modal fade" id="movieFormModal" tabindex="-1" aria-labelledby="movieFormModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content text-light">
+          <div class="modal-header">
+            <h5 class="modal-title" id="movieFormModalLabel">
+              Add a New Movie
+            </h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="movieForm" action="/insertData" method="post" >
+              <div class="mb-3">
+                <label for="title" class="form-label">Title:</label>
+                <input type="text" id="title" name="title" class="form-control   "
+                  required />
+              </div>
+              <div class="mb-3">
+                <label for="rating">Choose rating:</label>
+                <select class="form-select  " aria-label="Default select example" name="rating"
+                  id="rating">
+                  <option selected>select stars</option>
+                  <option value="⭐">⭐</option>
+                  <option value="⭐⭐">⭐⭐</option>
+                  <option value="⭐⭐⭐">⭐⭐⭐</option>
+                  <option value="⭐⭐⭐⭐">⭐⭐⭐⭐</option>
+                  <option value="⭐⭐⭐⭐⭐">⭐⭐⭐⭐⭐</option>
+                </select>
+              </div>
+              <div class="mb-3">
+                <label for="date" class="form-label">Release Date:</label>
+                <input type="date" id="date" name="date" class="form-control   "
+                  required />
+              </div>
+          </div>
+          <div class="mb-3 ms-3 me-3">
+            <label for="description" class="form-label">Description:</label>
+            <textarea id="description" name="description" class="form-control   "
+              required></textarea>
+          </div>
+          <div class="mb-3 ms-3 me-3">
+            <label for="image" class="form-label">Image URL:</label>
+            <input type="text" id="image" name="image" class="form-control   " required />
+          </div>
+          <button type="submit" class="btn btn-outline-primary w-100">
+            Add Movie
+          </button>
+          </form>
+        </div>
+      </div>
+    </div>
+    </div>
+
+    <!-- bootstrap script  -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- main script -->
+    <script src="../assets/js/main.js"></script>
+</body>
+
+</html>

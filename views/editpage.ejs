@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Edit pge</title>
+    <!-- font awesome cdn  -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <!-- bootstrap -->
+    <link
+      href="../bootstrap/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <!-- css -->
+    <link rel="stylesheet" href="../assets/css/style.css" />
+    <style>
+
+      .edit-page {
+        filter:grayscale(50%);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .container-edit {
+        width: 25%;
+      }
+
+      .edit-page h2 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+
+      .form-label {
+        color: #2974ca; /* Set the color for form labels */
+      }
+
+   
+
+      .form-control:focus {
+        border-color: #2974ca; /* Set border color on focus */
+        box-shadow: 0 0 0 0.25rem rgba(53, 133, 238, 0.322); /* Add a subtle focus effect */
+      }
+    </style>
+  </head>
+  <body data-bs-theme="dark">
+    <%- include('partials/navbar') %>
+
+    <section class="edit-page mt-2">
+      <div class="w-50">
+        <h2>Add Movie</h2>
+        <!-- Heading for the form -->
+        <form
+          id="movieForm"
+          action="/updateData"
+          method="post"
+          class="needs-validation"
+        >
+          
+          <div class="mb-2">
+            <label for="title" class="form-label text-white fw-bolder">Title:</label>
+            <input type="hidden" name="id" value="<%= user.id %>">
+            <input
+              type="text"
+              id="title"
+              name="title"
+              class="form-control"
+              value="<%= user.title %>"
+              required
+            />
+          </div>
+            <div>
+            <label for="rating" class="text-white fw-bolder"> Rating:</label>
+                <select class="form-select " aria-label="Default select example" name="rating" id="movie_ratings">
+                    <option value="" <%=!user.rating ? 'selected' : '' %>>select stars</option>
+                    <option value="⭐" <%=user.rating==='⭐' ? 'selected' : '' %>>⭐</option>
+                    <option value="⭐⭐" <%=user.rating==='⭐⭐' ? 'selected' : '' %>>⭐⭐</option>
+                    <option value="⭐⭐⭐" <%=user.rating==='⭐⭐⭐' ? 'selected' : '' %>>⭐⭐⭐</option>
+                    <option value="⭐⭐⭐⭐" <%=user.rating==='⭐⭐⭐⭐' ? 'selected' : '' %>>⭐⭐⭐⭐</option>
+                    <option value="⭐⭐⭐⭐⭐" <%=user.rating==='⭐⭐⭐⭐⭐' ? 'selected' : '' %>>⭐⭐⭐⭐⭐</option>
+                </select>
+          </div>
+          <div class="mb-2">
+            <label for="date" class="form-label text-white fw-bolder">Release Date</label>
+            <input
+              type="date"
+              id="date"
+              name="date"
+              class="form-control "
+              value="<%= new Date(user.date).toISOString().split('T')[0] %>"
+              required
+            />
+          </div>
+          <div class="mb-2">
+            <label for="description" class="form-label text-white fw-bolder">Description:</label>
+            <textarea
+              id="description"
+              name="description"
+              class="form-control "
+              required
+            ><%= user.description %></textarea>
+          </div>
+          <div class="mb-2">
+            <label for="image" class="form-label text-white fw-bolder">Image URL:</label>
+            <input
+              type="text"
+              id="image"
+              name="image"
+              class="form-control  text-light "
+              value="<%= user.image %>"
+              required
+            />
+          </div>
+          <button type="submit" class="btn btn-outline-primary mt-2 w-100">Update Data</button>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>
